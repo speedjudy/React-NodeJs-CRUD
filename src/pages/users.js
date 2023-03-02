@@ -119,7 +119,7 @@ function EnhancedTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell>
+        <TableCell style={{width:'20%'}} align={'center'}>
           Action
         </TableCell>
       </TableRow>
@@ -316,7 +316,7 @@ export default function Users() {
                       <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.email}</TableCell>
                       <TableCell align="center">{row.password}</TableCell>
-                      <TableCell padding="checkbox" style={{display:"flex"}}>
+                      <TableCell align="center" padding="checkbox">
                         <Button variant="outlined" id={row.id} onClick={handleDelete}>
                           Delete
                         </Button>

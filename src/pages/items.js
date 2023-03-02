@@ -112,7 +112,7 @@ function EnhancedTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell>
+        <TableCell style={{width:'20%'}}>
           Action
         </TableCell>
       </TableRow>
@@ -299,7 +299,7 @@ export default function Items() {
                     >
                       <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.description}</TableCell>
-                      <TableCell padding="checkbox" style={{display:"flex"}}>
+                      <TableCell padding="checkbox" align='center'>
                         <Button variant="outlined" id={row.id} onClick={handleDelete}>
                           Delete
                         </Button>

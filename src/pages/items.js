@@ -26,6 +26,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import axios from '../config/server.config';
+import Nav from './nav';
 function createData(name, description, id) {
   return {
     name,
@@ -236,6 +237,7 @@ export default function Items() {
 
   return (
     <Box sx={{ width: '100%' }}>
+      <Nav></Nav>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <Box
           component="form"

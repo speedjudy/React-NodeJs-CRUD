@@ -25,6 +25,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import Nav from './nav';
 import axios from '../config/server.config';
 function createData(name, email, password, id) {
   return {
@@ -248,6 +249,7 @@ export default function Users() {
 
   return (
     <Box sx={{ width: '100%' }}>
+      <Nav></Nav>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <Box
           component="form"

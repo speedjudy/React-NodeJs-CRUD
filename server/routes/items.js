@@ -5,15 +5,12 @@ var database = require("../config/database.js");
 
 module.exports = function () {
     router.route("/save").post(async function (req, res) {
-        let checkData = await database.select("tst_datalist", {
-            name: req.body.item,
-        });
-        if (checkData.data.length > 0) {
+        if (req.body.flag=="update") {
             await database.update("tst_datalist", {
                 name: req.body.item,
                 description: req.body.description,
             }, {
-                name: req.body.item
+                id: req.body.id
             });
             res.send({
                 status: 'success',

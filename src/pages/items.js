@@ -138,6 +138,8 @@ export default function Items() {
 
   const [item, setItem] = React.useState('');
   const [description, setDescription] = React.useState('');
+  const [flag, setFlag] = React.useState('save');
+  const [rid, setRid] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [tempsRows, setTempRows] = React.useState([]);
 
@@ -199,20 +201,33 @@ export default function Items() {
     axios.post('/api/item/delete', {id: event.target.id})
       .then(function (response) {
         handleGetData();
+        setItem('');
+        setDescription('');
+        setFlag('save');
+        setRid(0);
       })
       .catch(function (error) {
         console.log(error);
       });
   }
+  const handleUpdate = (item, description, id) => {
+    setFlag('update');
+    setRid(id);
+    setItem(item);
+    setDescription(description);
+  }
   const handleSave = () => {
-    console.log("save");
     axios.post('/api/item/save', {
       item: item,
-      description: description
+      description: description,
+      flag: flag,
+      id: rid
     })
       .then(function (response) {
         setItem('');
         setDescription('');
+        setFlag('save');
+        setRid(0);
         console.log(response.data.status);
         if (response.data.status === "dup") {
           alert("Duplicate...");
@@ -284,9 +299,12 @@ export default function Items() {
                     >
                       <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.description}</TableCell>
-                      <TableCell padding="checkbox">
+                      <TableCell padding="checkbox" style={{display:"flex"}}>
                         <Button variant="outlined" id={row.id} onClick={handleDelete}>
                           Delete
+                        </Button>
+                        <Button variant="outlined" id={row.id} onClick={()=>handleUpdate(row.name, row.description, row.id)}>
+                          Update
                         </Button>
                       </TableCell>
                     </TableRow>

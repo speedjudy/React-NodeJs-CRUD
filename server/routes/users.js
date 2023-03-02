@@ -5,31 +5,44 @@ var database = require("../config/database.js");
 
 module.exports = function () {
     router.route("/save").post(async function (req, res) {
-        let checkEmail = await database.select("tst_users", {
-            email: req.body.email,
-        });
-        if (checkEmail.data.length > 0) {
+        if (req.body.flag=="update") {
             await database.update("tst_users", {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
             }, {
-                email: req.body.email
+                id: req.body.id
             });
             res.send({
                 status: 'success',
             })
         } else {
-            if (req.body.email) {
-                await database.insert("tst_users", {
+            let checkEmail = await database.select("tst_users", {
+                email: req.body.email,
+            });
+            if (checkEmail.data.length > 0) {
+                await database.update("tst_users", {
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password,
+                }, {
+                    email: req.body.email
                 });
+                res.send({
+                    status: 'success',
+                })
+            } else {
+                if (req.body.email) {
+                    await database.insert("tst_users", {
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: req.body.password,
+                    });
+                }
+                res.send({
+                    status: 'success',
+                })
             }
-            res.send({
-                status: 'success',
-            })
         }
     });
     router.route("/get").get(async function (req, res) {

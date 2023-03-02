@@ -29,8 +29,8 @@ import Nav from './nav';
 import axios from '../config/server.config';
 function createData(name, email, password, id) {
   return {
-    name,
     email,
+    name,
     password,
     id
   };
@@ -146,6 +146,8 @@ export default function Users() {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [flag, setFlag] = React.useState('save');
+  const [rid, setRid] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [tempsRows, setTempRows] = React.useState([]);
 
@@ -205,10 +207,22 @@ export default function Users() {
       setPassword(event.target.value);
     }
   }
+  const handleUpdate = (email, name, password, id) => {
+    setFlag('update');
+    setRid(id);
+    setName(name);
+    setEmail(email);
+    setPassword(password);
+  }
   const handleDelete = (event) => {
     axios.post('/api/user/delete', {id: event.target.id})
       .then(function (response) {
         handleGetData();
+        setEmail('');
+        setName('');
+        setPassword('');
+        setFlag('save');
+        setRid(0);
       })
       .catch(function (error) {
         console.log(error);
@@ -219,12 +233,16 @@ export default function Users() {
     axios.post('/api/user/save', {
       name: name,
       email: email,
-      password: password
+      password: password,
+      flag: flag,
+      id: rid
     })
       .then(function (response) {
         setEmail('');
         setName('');
         setPassword('');
+        setFlag('save');
+        setRid(0);
         console.log(response.data.status);
         if (response.data.status === "dup") {
           alert("Duplicate Email...");
@@ -298,9 +316,12 @@ export default function Users() {
                       <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.email}</TableCell>
                       <TableCell align="center">{row.password}</TableCell>
-                      <TableCell padding="checkbox">
+                      <TableCell padding="checkbox" style={{display:"flex"}}>
                         <Button variant="outlined" id={row.id} onClick={handleDelete}>
                           Delete
+                        </Button>
+                        <Button variant="outlined" id={row.id} onClick={()=>handleUpdate(row.name, row.email,row.password, row.id)}>
+                          Update
                         </Button>
                       </TableCell>
                     </TableRow>

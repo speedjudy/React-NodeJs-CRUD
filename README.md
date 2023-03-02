@@ -28,32 +28,51 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
+## Backend Run
+In server directory, run the command
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### `npm install`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You have to install node modules.
 
-### Code Splitting
+### `database setting`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+In server/config directory, If you open the database.json file, you can see.
 
-### Analyzing the Bundle Size
+### `database install`
+First, You have to create new database.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### `tables import`
+You have to run below query.
 
-### Making a Progressive Web App
+CREATE TABLE tst_Users (
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(50) NOT NULL,
+email VARCHAR(100) NOT NULL,
+password VARCHAR(255) NOT NULL,
+PRIMARY KEY (id)
+);
+INSERT INTO tst_Users (name, email, password) VALUES
+('John Doe', 'johndoe@example.com', 'password123'),
+('Jane Smith', 'janesmith@example.com', 'password456'),
+('Bob Johnson', 'bobjohnson@example.com', 'password789');
+CREATE TABLE tst_DataList (
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(50) NOT NULL,
+description TEXT,
+PRIMARY KEY (id)
+);
+INSERT INTO tst_DataList (name, description) VALUES
+('Item 1', 'This is the first item in the list.'),
+('Item 2', 'This is the second item in the list.'),
+('Item 3', 'This is the third item in the list.');
+CREATE TABLE tst_AuditLog (
+id INT NOT NULL AUTO_INCREMENT,
+data_id INT NOT NULL,
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+action VARCHAR(50) NOT NULL,
+timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+);
+INSERT INTO tst_AuditLog (data_id, action, timestamp)
+VALUES (1, 'Item with ID 4 removed', NOW());

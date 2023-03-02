@@ -43,7 +43,7 @@ In server/config directory, If you open the database.json file, you can see.
 First, You have to create new database.
 
 ### `tables import`
-You have to run below query.
+You have to run below query in mysql database.
 
 CREATE TABLE tst_Users (
 id INT NOT NULL AUTO_INCREMENT,

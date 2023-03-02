@@ -76,3 +76,4 @@ PRIMARY KEY (id)
 );
 INSERT INTO tst_AuditLog (data_id, action, timestamp)
 VALUES (1, 'Item with ID 4 removed', NOW());
+<img src="./instructions/database_tables.png"></img>

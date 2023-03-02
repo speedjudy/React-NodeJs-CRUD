@@ -76,4 +76,9 @@ PRIMARY KEY (id)
 );
 INSERT INTO tst_AuditLog (data_id, action, timestamp)
 VALUES (1, 'Item with ID 4 removed', NOW());
+<hr>
 <img src="./instructions/database_tables.png"></img>
+
+
+### `npm start`
+Run the backend port 8080.

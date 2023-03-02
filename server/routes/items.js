@@ -40,7 +40,7 @@ module.exports = function () {
         });
         await database.insert("tst_auditlog", {
             data_id: checkData.data[0].id,
-            action: "Item with ID "+checkData.data[0].id+" removed",
+            action: checkData.data[0].name+" with ID "+checkData.data[0].id+" removed",
         });
         await database.delete("tst_datalist", req.body.id);
         res.send({
